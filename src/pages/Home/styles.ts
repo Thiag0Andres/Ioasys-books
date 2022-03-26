@@ -27,7 +27,7 @@ export const Logo = styled.img`
   height: 36px;
 `;
 
-export const TitleLogo = styled.h1`
+export const Title = styled.h1`
   font-family: "Heebo";
   font-style: normal;
   font-weight: 300;
@@ -61,14 +61,13 @@ export const LogoutIcon = styled.img`
 
 export const Content = styled.div`
   width: 100%;
+  max-width: 1136px;
   height: 100%;
 `;
 
 export const ContainerBooks = styled.ul`
   width: 100%;
-  max-width: 1136px;
   height: 100%;
-  max-height: 512px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
