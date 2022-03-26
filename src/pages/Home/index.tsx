@@ -3,7 +3,8 @@ import { Spinner } from "react-bootstrap";
 import { Card } from "../../components";
 import { IBooksResponse, IBook } from "../../services/types";
 import api from "../../services/api";
-
+import logo from "../../assets/images/logo.png";
+import logoutIcon from "../../assets/images/logoutIcon.png";
 import * as S from "./styles";
 
 const Home: React.FC = () => {
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
       .get(`/books?page=1&amount=${12}`, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDgzMjE0MDE1MTcsImlhdCI6MTY0ODMyNTAwMTUxN30.YoQdsWQxkjSsL0n5WyG9GCmaaoOVaLNGz-17pKQF_1k",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDgzMjU1OTg0NzYsImlhdCI6MTY0ODMyOTE5ODQ3Nn0.HHIOqlKc2jL-8QRllYS1uD19F79vts5Myb8BnzSG2eQ",
         },
       })
       .then((response) => {
@@ -39,6 +40,16 @@ const Home: React.FC = () => {
 
   return (
     <S.Container>
+      <S.Header>
+        <S.ContentLogo>
+          <S.Logo src={logo} alt="" />
+          <S.TitleLogo>Books</S.TitleLogo>
+        </S.ContentLogo>
+        <S.ContentInfoUser>
+          <S.WelcomeText>Bem vindo, Guilherme!</S.WelcomeText>
+          <S.LogoutIcon src={logoutIcon} alt="" />
+        </S.ContentInfoUser>
+      </S.Header>
       <S.Content>
         <S.ContainerBooks>
           {!loading && data ? (

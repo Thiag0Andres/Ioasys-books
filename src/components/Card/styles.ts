@@ -9,6 +9,7 @@ export const Container = styled.button`
   border: none;
   padding: 19px 16px;
   display: flex;
+  overflow: hidden;
 `;
 
 export const Image = styled.img`
