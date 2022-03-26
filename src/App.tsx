@@ -1,5 +1,5 @@
 import React from "react";
-import { Login } from "./pages";
+import { Home, Login } from "./pages";
 import { ToastContainer } from "react-toastify";
 import GlobalStyle from "./styles/global";
 
@@ -8,7 +8,7 @@ function App() {
     <>
       <GlobalStyle />
       <div className="App">
-        <Login />
+        <Home />
         <ToastContainer />
       </div>
     </>
