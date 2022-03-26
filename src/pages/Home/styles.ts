@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Header = styled.div`
@@ -15,6 +16,16 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 1161px) {
+    max-width: 848px;
+  }
+  @media screen and (max-width: 900px) {
+    max-width: 592px;
+  }
+  @media screen and (max-width: 618px) {
+    max-width: 288px;
+  }
 `;
 
 export const ContentLogo = styled.div`
@@ -34,7 +45,7 @@ export const Title = styled.h1`
   font-size: 28px;
   line-height: 40px;
   text-align: left;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.dark_grey};
   margin-left: 17px;
 `;
 
@@ -50,7 +61,7 @@ export const WelcomeText = styled.p`
   font-size: 12px;
   line-height: 16px;
   text-align: left;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.dark_grey}; ;
 `;
 
 export const LogoutIcon = styled.img`
@@ -63,21 +74,48 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1136px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (max-width: 1161px) {
+    max-width: 848px;
+  }
+  @media screen and (max-width: 900px) {
+    max-width: 592px;
+  }
+  @media screen and (max-width: 618px) {
+    max-width: 288px;
+  }
 `;
 
 export const ContainerBooks = styled.ul`
-  width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 16px;
+
+  @media screen and (max-width: 1161px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 618px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 `;
 
 export const ListItem = styled.li`
   width: 272px;
   height: 160px;
   list-style: none;
+
+  @media screen and (max-width: 900px) {
+    width: 288px;
+  }
 `;
 
 export const ContainerSpinner = styled.div`
@@ -88,6 +126,6 @@ export const ContainerSpinner = styled.div`
   align-items: center;
 
   .spinner-border {
-    color: #c80e60;
+    color: ${({ theme }) => theme.colors.pink};
   }
 `;

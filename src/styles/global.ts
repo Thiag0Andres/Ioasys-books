@@ -57,5 +57,14 @@ body {
   p {
     margin: 0px !important;
   }
+
+  ul {
+    padding: 0px !important;
+  }
+
+  li {
+    margin: 0px !important;
+    padding: 0px !important;
+  }
 }
 `;

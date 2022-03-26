@@ -3,13 +3,17 @@ import styled from "styled-components";
 export const Container = styled.button`
   width: 272px;
   height: 160px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
   border-radius: 4px;
   border: none;
   padding: 19px 16px;
   display: flex;
   overflow: hidden;
+
+  @media screen and (max-width: 900px) {
+    width: 288px;
+  }
 `;
 
 export const Image = styled.img`
@@ -31,7 +35,7 @@ export const TitleCard = styled.h1`
   font-size: 14px;
   line-height: 20px;
   text-align: left;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.dark_grey};
 `;
 
 export const AuthorsCard = styled.p`
@@ -41,7 +45,7 @@ export const AuthorsCard = styled.p`
   font-size: 12px;
   line-height: 20px;
   text-align: left;
-  color: #ab2680;
+  color: ${({ theme }) => theme.colors.pink};
 `;
 
 export const DescriptionCard = styled.p`
@@ -51,5 +55,5 @@ export const DescriptionCard = styled.p`
   font-size: 12px;
   line-height: 20px;
   text-align: left;
-  color: #999999;
+  color: ${({ theme }) => theme.colors.grey};
 `;

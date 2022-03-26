@@ -3,11 +3,14 @@ import { Spinner } from "react-bootstrap";
 import { Card, Pagination } from "../../components";
 import { IBooksResponse, IBook } from "../../services/types";
 import api from "../../services/api";
+import { useMobile } from "../../hooks/use-mobile";
 import logo from "../../assets/images/logo.png";
 import logoutIcon from "../../assets/images/logoutIcon.png";
 import * as S from "./styles";
 
 const Home: React.FC = () => {
+  const isMobile = useMobile();
+
   const [data, setData] = useState<IBooksResponse>();
   //const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState<number>(1);
@@ -20,7 +23,7 @@ const Home: React.FC = () => {
       .get(`/books?page=${page}&amount=${12}`, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDgzMjU1OTg0NzYsImlhdCI6MTY0ODMyOTE5ODQ3Nn0.HHIOqlKc2jL-8QRllYS1uD19F79vts5Myb8BnzSG2eQ",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDgzMzEyNzk0OTIsImlhdCI6MTY0ODMzNDg3OTQ5Mn0.O9CGjS6hdaXwcUDMwR-fQkZ7DE0BsTBHDt6dTt6ETIE",
         },
       })
       .then((response) => {
@@ -48,7 +51,7 @@ const Home: React.FC = () => {
           <S.Title>Books</S.Title>
         </S.ContentLogo>
         <S.ContentInfoUser>
-          <S.WelcomeText>Bem vindo, Guilherme!</S.WelcomeText>
+          {!isMobile && <S.WelcomeText>Bem vindo, Guilherme!</S.WelcomeText>}
           <S.LogoutIcon src={logoutIcon} alt="" />
         </S.ContentInfoUser>
       </S.Header>

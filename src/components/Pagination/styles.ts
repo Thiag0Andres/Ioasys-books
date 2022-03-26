@@ -6,6 +6,10 @@ export const Container = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 88px;
+
+  @media screen and (max-width: 618px) {
+    justify-content: center;
+  }
 `;
 
 export const TextPage = styled.p`
@@ -15,7 +19,7 @@ export const TextPage = styled.p`
   font-size: 12px;
   line-height: 20px;
   text-align: left;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.dark_grey};
 `;
 
 export const ContainerButtons = styled.div`
