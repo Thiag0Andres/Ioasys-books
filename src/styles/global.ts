@@ -1,41 +1,52 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Poppins, Manrope;
-  }
-
-  button,
-div[href] {
-  cursor: pointer;
-  text-transform: none !important;
-}
-
-html {
-  height: 100%;
-  scroll-behavior: smooth; // scroll suavizado
-  overflow-x: hidden;
-  overflow: inherit;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: 'Heebo', sans-serif !important;
+  font-size: 1rem;
+  top: 0px;
+  left: 0px;
   overflow-x: hidden;
-  background-color: ${({ theme }: any) => theme.colors.white};
-}
 
-@media only screen and (min-width: 1000px) {
-  .justify-content {
-    max-width: 1000px;
-    display: flex;
-    justify-content: center;
-    margin: auto;
+  max-width: 100%;
+  background-color: white !important;
+  background-position: bottom !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed !important;
+  opacity: 1;
+
+  @media (max-width: 1080px) {
+    html {
+      font-size: 93.75%; // 15px
+    }
   }
-}
 
-a {
+  @media (max-width: 720px) {
+    html {
+      font-size: 87.5%; // 14px
+    }
+  }
+
+  @media (max-width: 425px) {
+    html {
+      font-size: 81.25%; // 13px
+    }
+  }
+
+  @media (max-width: 320px) {
+    html {
+      font-size: 75%; // 12px
+    }
+  }
+
+  a {
   cursor: pointer !important;
+}
 }
 `;
