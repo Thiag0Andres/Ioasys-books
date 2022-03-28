@@ -7,5 +7,6 @@ export default {
     grey: "#999999",
     dark_grey: "#333333",
     pink: "#ab2680",
+    dark_pink: "#B22E6F",
   },
 };

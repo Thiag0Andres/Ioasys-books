@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import background from "../../assets/images/backgroundHome.png";
+
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -7,6 +9,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
+  background-image: url("${background}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const Header = styled.div`
@@ -61,7 +67,7 @@ export const WelcomeText = styled.p`
   font-size: 12px;
   line-height: 16px;
   text-align: left;
-  color: ${({ theme }) => theme.colors.dark_grey}; ;
+  color: ${({ theme }) => theme.colors.dark_grey};
 `;
 
 export const LogoutIcon = styled.img`

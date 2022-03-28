@@ -7,15 +7,13 @@ import theme from "./theme/theme";
 
 function App() {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <div className="App">
-        <ThemeProvider theme={theme}>
-          <Home />
-          <ToastContainer />
-        </ThemeProvider>
+        <Login />
+        <ToastContainer />
       </div>
-    </>
+    </ThemeProvider>
   );
 }
 

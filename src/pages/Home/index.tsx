@@ -23,7 +23,7 @@ const Home: React.FC = () => {
       .get(`/books?page=${page}&amount=${12}`, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDgzMzEyNzk0OTIsImlhdCI6MTY0ODMzNDg3OTQ5Mn0.O9CGjS6hdaXwcUDMwR-fQkZ7DE0BsTBHDt6dTt6ETIE",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDg0NDU0NTEzNzAsImlhdCI6MTY0ODQ0OTA1MTM3MH0.T4KPOo1sD8z71P01Td49rDw4NA5NrFH42TaEiDVNdm4",
         },
       })
       .then((response) => {

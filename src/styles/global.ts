@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
 
   max-width: 100%;
-  background-color: white !important;
+  background-color: ${({ theme }) => theme.colors.white} !important;
   background-position: bottom !important;
   background-repeat: no-repeat;
   background-attachment: fixed !important;
@@ -65,6 +65,11 @@ body {
   li {
     margin: 0px !important;
     padding: 0px !important;
+  }
+
+  .text-error {
+    margin-bottom: 1.25rem;
+    color:  ${({ theme }) => theme.colors.white};
   }
 }
 `;
