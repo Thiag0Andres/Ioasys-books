@@ -5,13 +5,21 @@ import * as S from "./styles";
 
 interface Props {
   data: IBook;
+  setShowModal: any;
+  setBook: any;
 }
 
-const CardPost: React.FC<Props> = ({ data }: Props) => {
+const Card: React.FC<Props> = ({ data, setShowModal, setBook }: Props) => {
   return (
     <>
       {data && (
-        <S.Container>
+        <S.Container
+          type="button"
+          onClick={() => {
+            setShowModal(true);
+            setBook(data);
+          }}
+        >
           <S.Image
             src={data.imageUrl ? data.imageUrl : backgroundBook}
             alt={data.title}
@@ -35,4 +43,4 @@ const CardPost: React.FC<Props> = ({ data }: Props) => {
   );
 };
 
-export default CardPost;
+export default Card;

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMobile } from "../../hooks/use-mobile";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { Card, Pagination } from "../../components";
+import { BookDetailsModal, Card, Pagination } from "../../components";
 import { IBooksResponse, IBook } from "../../services/types";
 import { RootState } from "../../store";
 import { Creators as UserCreators } from "../../store/ducks/user";
@@ -25,7 +25,8 @@ const Home: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const [data, setData] = useState<IBooksResponse>();
-  //const [showModal, setShowModal] = useState(false);
+  const [book, setBook] = useState<IBook>();
+  const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -66,56 +67,71 @@ const Home: React.FC = () => {
     navigate("/");
   }, [dispatch, navigate]);
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   return (
-    <S.Container>
-      <S.Header>
-        <S.ContentLogo>
-          <S.Logo src={logo} alt="" />
-          <S.Title>Books</S.Title>
-        </S.ContentLogo>
-        <S.ContentInfoUser>
-          {!isMobile && user && user.name && (
-            <S.WelcomeText>Bem vindo, {user.name}!</S.WelcomeText>
-          )}
-          <S.ButtonLogout type="button" onClick={goLogout}>
-            <S.LogoutIcon src={logoutIcon} alt="" />
-          </S.ButtonLogout>
-        </S.ContentInfoUser>
-      </S.Header>
-      <S.Content>
-        {!loading ? (
-          <>
-            {data && data.data.length > 0 ? (
-              <>
-                <S.ContainerBooks>
-                  {data.data.map((item: IBook) => (
-                    <S.ListItem key={item.id}>
-                      <Card data={item} />
-                    </S.ListItem>
-                  ))}
-                </S.ContainerBooks>
-                <Pagination
-                  page={data.page}
-                  lastPage={data.totalPages}
-                  setPage={setPage}
-                />
-              </>
-            ) : (
-              <S.Title>Nenhum conteúdo encontrado</S.Title>
+    <>
+      <S.Container>
+        <S.Header>
+          <S.ContentLogo>
+            <S.Logo src={logo} alt="" />
+            <S.Title>Books</S.Title>
+          </S.ContentLogo>
+          <S.ContentInfoUser>
+            {!isMobile && user && user.name && (
+              <S.WelcomeText>Bem vindo, {user.name}!</S.WelcomeText>
             )}
-          </>
-        ) : (
-          <S.ContainerSpinner>
-            <Spinner
-              as="span"
-              animation="border"
-              role="status"
-              aria-hidden="true"
-            />
-          </S.ContainerSpinner>
-        )}
-      </S.Content>
-    </S.Container>
+            <S.ButtonLogout type="button" onClick={goLogout}>
+              <S.LogoutIcon src={logoutIcon} alt="" />
+            </S.ButtonLogout>
+          </S.ContentInfoUser>
+        </S.Header>
+        <S.Content>
+          {!loading ? (
+            <>
+              {data && data.data.length > 0 ? (
+                <>
+                  <S.ContainerBooks>
+                    {data.data.map((item: IBook) => (
+                      <S.ListItem key={item.id}>
+                        <Card
+                          data={item}
+                          setShowModal={setShowModal}
+                          setBook={setBook}
+                        />
+                      </S.ListItem>
+                    ))}
+                  </S.ContainerBooks>
+                  <Pagination
+                    page={data.page}
+                    lastPage={data.totalPages}
+                    setPage={setPage}
+                  />
+                </>
+              ) : (
+                <S.Title>Nenhum conteúdo encontrado</S.Title>
+              )}
+            </>
+          ) : (
+            <S.ContainerSpinner>
+              <Spinner
+                as="span"
+                animation="border"
+                role="status"
+                aria-hidden="true"
+              />
+            </S.ContainerSpinner>
+          )}
+        </S.Content>
+      </S.Container>
+      <BookDetailsModal
+        show={showModal}
+        data={book}
+        handleClose={handleClose}
+      />
+    </>
   );
 };
 
