@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
-import produce, { Draft } from 'immer';
-import { Reducer } from 'redux';
-import { ActionType, action as ActionCreator } from 'typesafe-actions';
+import produce, { Draft } from "immer";
+import { Reducer } from "redux";
+import { ActionType, action as ActionCreator } from "typesafe-actions";
 
 export enum Types {
-  SET_AUTH = '@auth/SET_AUTH',
-  LOGOUT_AUTH = '@auth/LOGOUT_AUTH',
+  SET_AUTH = "@auth/SET_AUTH",
+  LOGOUT_AUTH = "@auth/LOGOUT_AUTH",
 }
 
 const { REACT_APP_LOCAL_STORAGE_USER_AUTH } = process.env;
@@ -17,7 +17,7 @@ export interface IAuthState {
 const token = localStorage.getItem(String(REACT_APP_LOCAL_STORAGE_USER_AUTH));
 
 const INITIAL_STATE: IAuthState = {
-  authenticated: token,
+  authenticated: token ? token : "",
 };
 
 interface AuthParams {
@@ -37,7 +37,7 @@ export type ActionTypes = ActionType<typeof Creators>;
 
 const reducer: Reducer<IAuthState, ActionTypes> = (
   state = INITIAL_STATE,
-  action: ActionTypes,
+  action: ActionTypes
 ) => {
   const { type, payload } = action;
 

@@ -70,6 +70,17 @@ export const WelcomeText = styled.p`
   color: ${({ theme }) => theme.colors.dark_grey};
 `;
 
+export const ButtonLogout = styled.button`
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+`;
+
 export const LogoutIcon = styled.img`
   width: 32px;
   height: 32px;

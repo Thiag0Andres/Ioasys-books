@@ -1,20 +1,22 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-//import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { Col, Form, Spinner } from "react-bootstrap";
 import { ILoginForm } from "../../services/types";
-import validationSchema from "./validations";
-import api from "../../services/api";
-import logo from "../../assets/images/logoWhite.png";
 import { Creators as AuthCreators } from "../../store/ducks/auth";
 import { Creators as UserCreators, IUser } from "../../store/ducks/user";
+import validationSchema from "./validations";
+import logo from "../../assets/images/logoWhite.png";
+import api from "../../services/api";
 
 import * as S from "./styles";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const onSubmit = useCallback(
@@ -32,6 +34,8 @@ const Login: React.FC = () => {
             dispatch(AuthCreators.setAuthenticate({ token }));
             dispatch(UserCreators.setUser({ user }));
 
+            navigate("/home");
+
             setLoading(false);
             resetForm({});
           })
@@ -41,7 +45,7 @@ const Login: React.FC = () => {
           });
       }
     },
-    [dispatch]
+    [dispatch, navigate]
   );
 
   const formik = useFormik<ILoginForm>({

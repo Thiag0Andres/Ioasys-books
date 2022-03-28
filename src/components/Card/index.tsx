@@ -18,8 +18,8 @@ const CardPost: React.FC<Props> = ({ data }: Props) => {
           />
           <S.Content>
             <S.TitleCard>{data.title}</S.TitleCard>
-            {data.authors.map((item: string) => (
-              <S.AuthorsCard>{item}</S.AuthorsCard>
+            {data.authors.map((item: string, index) => (
+              <S.AuthorsCard key={index.toString()}>{item}</S.AuthorsCard>
             ))}
             <S.DescriptionCard>
               {data.pageCount === 1

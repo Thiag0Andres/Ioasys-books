@@ -1,15 +1,28 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useMobile } from "../../hooks/use-mobile";
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { Card, Pagination } from "../../components";
 import { IBooksResponse, IBook } from "../../services/types";
+import { RootState } from "../../store";
+import { Creators as UserCreators } from "../../store/ducks/user";
+import { Creators as AuthCreators } from "../../store/ducks/auth";
 import api from "../../services/api";
-import { useMobile } from "../../hooks/use-mobile";
 import logo from "../../assets/images/logo.png";
 import logoutIcon from "../../assets/images/logoutIcon.png";
 import * as S from "./styles";
 
+const { REACT_APP_LOCAL_STORAGE_USER_AUTH } = process.env;
+
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isMobile = useMobile();
+
+  const token = localStorage.getItem(String(REACT_APP_LOCAL_STORAGE_USER_AUTH));
+  const { user } = useSelector((state: RootState) => state.user);
 
   const [data, setData] = useState<IBooksResponse>();
   //const [showModal, setShowModal] = useState(false);
@@ -22,8 +35,7 @@ const Home: React.FC = () => {
     api
       .get(`/books?page=${page}&amount=${12}`, {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzI5MGNjNDk4YjVjMDg4NDVlMGEiLCJ2bGQiOjE2NDg0NDU0NTEzNzAsImlhdCI6MTY0ODQ0OTA1MTM3MH0.T4KPOo1sD8z71P01Td49rDw4NA5NrFH42TaEiDVNdm4",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -31,17 +43,28 @@ const Home: React.FC = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error.response.data.errors.message);
+        if (error.response.status === 401) {
+          dispatch(UserCreators.removerUser());
+          dispatch(AuthCreators.logout());
+          navigate("/");
+        }
+        toast.error(error.response.data.errors.message);
         setLoading(false);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [page]);
+  }, [dispatch, navigate, page, token]);
 
   useEffect(() => {
     loadBooks();
   }, [loadBooks]);
+
+  const goLogout = useCallback(() => {
+    dispatch(UserCreators.removerUser());
+    dispatch(AuthCreators.logout());
+    navigate("/");
+  }, [dispatch, navigate]);
 
   return (
     <S.Container>
@@ -51,8 +74,12 @@ const Home: React.FC = () => {
           <S.Title>Books</S.Title>
         </S.ContentLogo>
         <S.ContentInfoUser>
-          {!isMobile && <S.WelcomeText>Bem vindo, Guilherme!</S.WelcomeText>}
-          <S.LogoutIcon src={logoutIcon} alt="" />
+          {!isMobile && user && user.name && (
+            <S.WelcomeText>Bem vindo, {user.name}!</S.WelcomeText>
+          )}
+          <S.ButtonLogout type="button" onClick={goLogout}>
+            <S.LogoutIcon src={logoutIcon} alt="" />
+          </S.ButtonLogout>
         </S.ContentInfoUser>
       </S.Header>
       <S.Content>
