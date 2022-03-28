@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
-
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 //import { useHistory } from 'react-router-dom';
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -9,39 +8,41 @@ import { ILoginForm } from "../../services/types";
 import validationSchema from "./validations";
 import api from "../../services/api";
 import logo from "../../assets/images/logoWhite.png";
+import { Creators as AuthCreators } from "../../store/ducks/auth";
+import { Creators as UserCreators, IUser } from "../../store/ducks/user";
 
 import * as S from "./styles";
 
 const Login: React.FC = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = useCallback((form: ILoginForm, resetForm) => {
-    if (form.email !== "" && form.password !== "") {
-      setLoading(true);
-      api
-        .post("/auth/sign-in", {
-          ...form,
-        })
-        .then((response) => {
-          const data = response.data;
+  const onSubmit = useCallback(
+    (form: ILoginForm, resetForm) => {
+      if (form.email !== "" && form.password !== "") {
+        setLoading(true);
+        api
+          .post("/auth/sign-in", {
+            ...form,
+          })
+          .then((response) => {
+            const user: IUser = response.data;
+            const token = response.headers.authorization;
 
-          /*             localStorage.setItem(
-              String(REACT_APP_LOCAL_STORAGE_USER_AUTH),
-              token
-            );
-            localStorage.setItem(
-              String(REACT_APP_LOCAL_STORAGE_USER_ID),
-              user.id
-            ); */
-          setLoading(false);
-          resetForm({});
-        })
-        .catch((error) => {
-          // console.log(error.response);
-          setLoading(false);
-        });
-    }
-  }, []);
+            dispatch(AuthCreators.setAuthenticate({ token }));
+            dispatch(UserCreators.setUser({ user }));
+
+            setLoading(false);
+            resetForm({});
+          })
+          .catch((error) => {
+            toast.error(error.response.data.errors.message);
+            setLoading(false);
+          });
+      }
+    },
+    [dispatch]
+  );
 
   const formik = useFormik<ILoginForm>({
     initialValues: {
@@ -53,12 +54,6 @@ const Login: React.FC = () => {
   });
   const { values, setFieldValue, setFieldTouched, errors, touched, resetForm } =
     formik;
-
-  /*   // Limpando token
-  useEffect(() => {
-    localStorage.removeItem(String(REACT_APP_LOCAL_STORAGE_USER_AUTH));
-    localStorage.removeItem(String(REACT_APP_LOCAL_STORAGE_USER_ID));
-  }, []); */
 
   return (
     <S.Container>

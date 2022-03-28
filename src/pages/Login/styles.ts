@@ -48,6 +48,7 @@ export const FormContainer = styled(Form)`
   transform: translate(0%, -50%);
 
   @media screen and (max-width: 618px) {
+    width: 288px;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -64,6 +65,10 @@ export const ContentForm = styled(Form.Group)`
   background: rgba(0, 0, 0, 0.32);
   padding: 8px 12px 8px 16px;
   margin-bottom: 16px;
+
+  @media screen and (max-width: 618px) {
+    width: 288px;
+  }
 `;
 
 export const Label = styled(Form.Label)`
@@ -104,6 +109,22 @@ export const Input = styled(Form.Control)`
     background: transparent;
     box-shadow: none;
     border: none;
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${({ theme }) => theme.colors.white};
+    opacity: 1; /* Firefox */
+  }
+
+  &-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:-ms-input-placeholder {
+    /* Microsoft Edge */
     color: ${({ theme }) => theme.colors.white};
   }
 `;

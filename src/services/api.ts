@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const { REACT_APP_API_URL } = process.env;
+
 const api = axios.create({
-  baseURL: "https://books.ioasys.com.br/api/v1",
+  baseURL: REACT_APP_API_URL,
 });
 
 export default api;
